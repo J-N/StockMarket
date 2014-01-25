@@ -70,5 +70,7 @@ returns -1 if invalid syntax
         
     id,symbols
         returns list of symbols
+    id,ticker,trueValue
+        returns trueValue
     
 """
