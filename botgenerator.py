@@ -14,6 +14,5 @@ while (x <= number):
 	clean  = temp.read().replace("###", str(random.randint(0,100)*.01))
 	output.write(clean)
 	output.close()
-	temp.close()
 	x += 1
 sys.exit()

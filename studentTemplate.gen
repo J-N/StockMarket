@@ -1,0 +1,15 @@
+import sys
+import random
+
+sys.path.append('../')
+
+from traderbot import TraderBot
+
+robot = TraderBot()
+
+stockArray = robot.getSymbols()
+
+startingPrice = -1
+
+while (True):
+#studentCode#
