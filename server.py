@@ -47,7 +47,7 @@ def parseData(data):
 
   if action == "buy":
     ticker = split_data[2]
-    volume = int(split_data[3])
+    buyVolume = int(split_data[3])
     stock = stocks[ticker]
 
     if buyVolume > stock.volume:
@@ -69,14 +69,22 @@ def parseData(data):
 
   elif action == "sell":
     ticker = split_data[2]
-    volume = int(split_data[3])
+    sellVolume = int(split_data[3])
+    #update stocks
     stock = stocks[ticker]
-    if volume <= account.portfolio[ticker]:
-      account.availableFunds += stock.bidask*volume
-      account.portfolio[ticker] -= volume
-      stock.volume += volume
+    volumeOwned = account.portfolio[ticker]
+    if sellVolume <= volumeOwned:
+      account.availableFunds += stock.bidask*sellVolume
+      volumeOwned -= sellVolume
+
+      #update stock volume and account volume
+      stock.volume += sellVolume
+      account.portfolio[ticker] = volumeOwned
       stocks[ticker] = stock
+      print "Sold", sellVolume, "shares of ticker:", ticker, "at price:", stock.bidask        
       return 1
+    else:
+      print "Failed, trying to sell more shares than are held"
     return 0
 
   elif action == "bid":
@@ -100,15 +108,19 @@ def parseData(data):
 
   elif action == "volume":
     ticker = split_data[2]
+    print "Volume of ticker:", ticker, "is", stocks[ticker].volume
     return stocks[ticker].volume
 
   elif action == "portfolio":
+    print "portfolio requested"
     return account.portfolio
 
   elif action == "funds":
+    print "Available funds requested"
     return account.availableFunds
 
   elif action == "symbols":
+    print "Symbols requested"
     return stocks.keys()
   else:
     return -1
@@ -127,12 +139,14 @@ def main():
   while True:
     client, address = s.accept()
     data = client.recv(size)
-    print data
+    # print data
     if data != 0:
       sendData = parseData(data)
     else:
       sendData = -1
-    print sendData
+      print "Error: no data received"
+    print "\n"
+    # print sendData
 
     sendData = pickle.dumps(sendData)
     client.send(sendData)
