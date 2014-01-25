@@ -55,7 +55,7 @@ while (True):
     print "purchasing", shares, "shares at $" , startingPrice, "per share"
 
     #ourchases stock
-    result = robot.bid(robot.accountID, shares, startingPrice, ticker)
+    result = robot.bid(shares, startingPrice, ticker)
     if result == 'Accepted':
         print "trade accepted"
     elif result == 'Unsuccesful':
@@ -77,11 +77,11 @@ while (True):
 
     if priceDifference < 0.05:
         print "price too low, giving up and selling at a loss"
-        result = robot.ask(robot.accountID, stockQuantity, currentPrice, currentlyOwnedStock)
+        result = robot.ask(stockQuantity, currentPrice, currentlyOwnedStock)
         print "selling", stockQuantity, "shares at $" , currentPrice, "per share"
     elif priceDifference > 0.05:
         "price increased sufficiently, selling for a profit"
-        result = robot.ask(robot.accountID, stockQuantity, currentPrice, currentlyOwnedStock)
+        result = robot.ask(stockQuantity, currentPrice, currentlyOwnedStock)
         print "selling", stockQuantity, "shares at $" , currentPrice, "per share"
 
     if result == 'Accepted':
