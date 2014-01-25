@@ -5,11 +5,8 @@ port = 19290
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((host, port))
-<<<<<<< HEAD
 
-=======
 size = 1024
->>>>>>> 0c851f689777b61a8589fc26cbcb7987b3fbcf12
 try:
     # Send data
     message = 'Testing, one, two, three'
