@@ -60,7 +60,7 @@ class TraderBot:
         elif data == 0:
             data = False
         else:
-            error(data)
+            # error(data) for future error codes
             data = False
         print 'Successful: ', data
         return data
