@@ -81,7 +81,9 @@ class traderBot:
 
     def error(code):
     
-    def __init__(self):
+    def __init__(self, accountID):
         self.host = 'localhost'
         self.port = 19290
         self.connectToServer()
+        if accountID != 0
+            self.accountID = accountID
