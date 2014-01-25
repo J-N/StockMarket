@@ -9,24 +9,16 @@ class Stock:
 
 
   def __init__(self, ticker):
-    
     self.price = random.uniform(5,20)
-    self.trueValue = random.uniform(0.9,1.1)*self.price
-    self.trend = random.uniform(0.45,0.55)
-    
-    
+    self.trueValue = random.uniform(0.9,1.1) * self.price
     self.ticker = ticker
-  
     self.buyQueue = []  # Decreasing order on price
     self.sellQueue = [] # Increasing order on price
-    #both queues are lists of tuples of (quantity, price, id) ordered by price
-
-    #TODO: (low priority) choose best data structure for job 
 
   
   def updateTrueValue(self):
     randNum = random.uniform(0,1)
-    if randNum > self.trend:
+    if randNum > 0.5:
       self.trueValue *= random.uniform(1.00, 1.04)
     else:
       self.trueValue /= random.uniform(1.00, 1.04)

@@ -13,11 +13,13 @@ from stock import Stock
 stocks = {}
 accounts = {}
 
-def initMarket():
+def initMarket(account_id):
   # initialize stocks
+  account = accounts[account_id]
   for letter in "ABCDEFGHIJ":
     ticker = "Stock" + letter
     stocks[ticker] = Stock(ticker)
+    account.portfolio[ticker] = 10000
 
 # Account Actions
 def ask(account_id, ticker, price, quantity):
@@ -60,7 +62,7 @@ def buy(account_id, ticker, quantity):
     return 0
 
   stock.buy(quantity)
-  print "Bought", buyVolume, "shares of ticker:", ticker, "at price:", stock.bidask
+  print "Bought", buyVolume, "shares of ticker:", ticker, "at price:", stock.price
   return 1
 
 def sell(account_id, ticker, quantity):
@@ -81,7 +83,7 @@ def sell(account_id, ticker, quantity):
 
   stock.sell(quantity)
   stocks[ticker] = stock
-  print "Sold", sellVolume, "shares of ticker:", ticker, "at price:", stock.bidask
+  print "Sold", sellVolume, "shares of ticker:", ticker, "at price:", stock.price
   return 1
 
 def parseData(data):
@@ -90,6 +92,9 @@ def parseData(data):
   if data == "create":
     account = Account(stocks.keys())
     accounts[account.id] = account
+    if account.id == 1:
+      initMarket(1)
+
     print "Account created with account id:", account.id
     return account.id
 
@@ -168,7 +173,6 @@ def main():
   s.bind((host,port))
   s.listen(backlog)
   print("listening for connections on port 19290")
-  initMarket()
   counter = 0
   while True:
     # Update true value every 20 cycles
