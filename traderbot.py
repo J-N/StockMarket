@@ -10,22 +10,42 @@ class traderBot:
         self.accountID = self.sock.recv(1024)
         
     def getSymbols():
-        #gets a list of all stock symbols
-        
+        data = sendMessage('symbols')
+        return data
         
     def getPrice(symbol):
-        #price for a specific ticker
+        data = sendMessage('price,{0}'.format(symbol))
+        return data
         
     def getVolume(symbol):
-        #volume for a specific ticker
+        data = sendMessage('volume,{0}'.format(symbol))
+        return data
         
     def buy(symbol, quantity):
-        
+        data = sendMessage('buy,{0},{1}'.format(symbol,quantity))
+        return data
+    
     def sell(symbol, quantity):
+        data = sendMessage('sell,{0},{1}'.format(symbol,quantity))
+        return data
     
     def getFunds():
+        data = sendMessage('funds')
+        return data
     
     def getPortfolio():
+        data = sendMessage('portfolio')
+        return data
+    
+    def sendMessage(message):
+        try:
+            # Send data
+            print 'sending "%s"' % message
+            sock.sendall(accountID + ',' + message + ';')
+            #recieve message
+            data = sock.recv(1024)
+            return data
+
     
     def __init__(self):
         self.host = 'localhost'
