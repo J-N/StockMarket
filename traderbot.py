@@ -8,6 +8,9 @@ class TraderBot:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         self.sock.connect((self.host, self.port))
 
+    def disconnect(self):
+        self.sock.disconnect()
+
     def createAccount(self):
         #requests a new ID
         self.connectToServer()
@@ -16,6 +19,7 @@ class TraderBot:
         self.sock.sendall('create')
         #recieve message
         self.accountID = pickle.loads(self.sock.recv(1024))
+
         print 'Created Account: ', self.accountID
 
     def getSymbols(self):

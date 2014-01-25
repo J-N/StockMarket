@@ -7,7 +7,6 @@ class Stock:
   '''TODO: use a parameter: 1/-1 to decide whether sellQueue or buyQueue and
   reuse code (low priority)'''
 
-
   def __init__(self, ticker):
     self.price = random.uniform(5,20)
     self.trueValue = random.uniform(0.9,1.1) * self.price
