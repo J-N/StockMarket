@@ -6,6 +6,9 @@ class traderBot:
         #connects to server, requests account
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         self.sock.connect((self.host, self.port))
+
+    def createAccount():
+        #requests a new ID
         self.sock.send('create')
         self.accountID = self.sock.recv(1024)
         print 'Created Account: ' + self.accountID
@@ -89,10 +92,16 @@ class traderBot:
     def error(code):
         #eventually will handle non-zero errors
     
+    def __init__(self):
+        #when account id is provided by brain
+        self.host = 'localhost'
+        self.port = 19290
+        self.connectToServer()
+        createAccount()
+
     def __init__(self, accountID):
         #when account id is provided by brain
         self.host = 'localhost'
         self.port = 19290
         self.connectToServer()
-        if accountID != 0
-            self.accountID = accountID
+        self.accountID = accountID
