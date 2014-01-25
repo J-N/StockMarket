@@ -28,8 +28,8 @@ while (True):
   currentlyOwnedStock = -1
   stockQuantity = -1
   empty = True
-  for x in range(0,len(portfolio))
-    if portfolio[str(x)] != 0
+  for x in range(0,len(portfolio)):
+    if portfolio[str(x)] != 0:
         empty=False
         currentlyOwnedStock = str(x)
         stockQuantity=portfolio[str(x)]
