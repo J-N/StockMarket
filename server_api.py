@@ -48,10 +48,10 @@ returns -1 if invalid syntax
         returns int 1 if accepted, 0 if declined
 
     id,bid,ticker,price,quantity
-        returns int 1 if accepted, 0 if declined
+        returns int 1 if accepted, 0 pending, -1 if declined
 
     id,ask,ticker,price,quantity
-        returns int 1 if accepted, 0 if declined
+        returns int 1 if accepted, 0 pending, -1 if declined
 
     id,price,ticker
         returns int price
