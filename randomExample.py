@@ -28,20 +28,18 @@ while (True):
   currentlyOwnedStock = -1
   stockQuantity = -1
   empty = True
-  for stock in portfolio:
-    #stock = stock.split(':')
-    print "stock info:", stock
-    if int(portfolio[stock]) != 0:
-      empty = False
-      currentlyOwnedStock = stock[0]
-      stockQuantity = stock[1]
+  for x in range(0,len(portfolio))
+    if portfolio[str(x)] != 0
+        empty=False
+        currentlyOwnedStock = str(x)
+        stockQuantity=portfolio[str(x)]
 
   if empty:
     print "portfolio is empty, picking a stock to buy"
     #buy algorithm
 
     #picks random stock
-    ticker = random.randint(0, portfolio.count() -1)
+    ticker = random.randint(0, len(portfolio) -1)
     print "decided to buy stock with ticker :", ticker
     startingPrice = robot.getPrice(ticker)
     print "price of stock: $", startingPrice, "per share"
