@@ -73,7 +73,7 @@ class TraderBot:
             data = 'Accepted'
         elif data == 0:
             data = 'Pending'
-        elif data == -1
+        elif data == -1:
             data = 'Unsuccesful'
         else:
             # error(data) for future error codes
@@ -89,7 +89,7 @@ class TraderBot:
             data = 'Accepted'
         elif data == 0:
             data = 'Pending'
-        elif data == -1
+        elif data == -1:
             data = 'Unsuccesful'
         else:
             # error(data) for future error codes

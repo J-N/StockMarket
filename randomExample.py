@@ -7,7 +7,7 @@
 # import sys
 import random
 # sys.path.insert(0, '../')
-from ..traderbot import TraderBot
+from traderbot import TraderBot
 
 #riskFactor represents how risky the bot is in general
 #it affects both how much money it's willing to wager, and how long it'll wait
@@ -16,7 +16,7 @@ riskFactor = .05 #fraction of original price
 riskFactorMultiplier = 3
 
 
-robot = TraderBot.traderBot()
+robot = TraderBot()
 
 stockArray = robot.getSymbols()
 
@@ -30,6 +30,7 @@ while (True):
   empty = True
   for stock in portfolio:
     stock = stock.split(':')
+    print stock
     if int(stock[1]) != 0:
       empty = False
       currentlyOwnedStock = stock[0]
