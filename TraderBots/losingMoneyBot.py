@@ -4,7 +4,9 @@
 #buys it immediately
 #sells it at a random price
 
-import ../traderBot
+import sys
+sys.path.insert(0, '../')
+from ... import traderBot
 
 robot = traderBot.traderBot()
 

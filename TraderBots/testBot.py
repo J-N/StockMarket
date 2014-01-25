@@ -1,5 +1,7 @@
+import sys
+sys.path.insert(0, '../')
 import random
-from ../traderbot import TraderBot
+from ... import TraderBot
 
 robot = TraderBot()
 
