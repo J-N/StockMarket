@@ -1,5 +1,5 @@
 import random
-from traderbot import TraderBot
+from ../traderbot import TraderBot
 
 robot = TraderBot()
 

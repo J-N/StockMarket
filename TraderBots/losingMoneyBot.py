@@ -4,7 +4,7 @@
 #buys it immediately
 #sells it at a random price
 
-import traderBot
+import ../traderBot
 
 robot = traderBot.traderBot()
 
