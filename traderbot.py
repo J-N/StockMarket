@@ -66,7 +66,7 @@ class TraderBot:
         return data
 
     def bid(self, client_id, quantity, price, symbol):
-        #attempts to sell a given quantity
+        #attempts to buy a given quantity
         data = self.sendMessage('bid,{0},{1},{2}'.format(symbol,price,quantity))
         data = int(data)
         if data == 1:
