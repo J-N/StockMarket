@@ -122,6 +122,13 @@ def parseData(data):
   elif action == "symbols":
     print "Symbols requested"
     return stocks.keys()
+
+  elif action == "trueValue":
+    ticker = split_data[2]
+    stock = stocks[ticker]
+    print "trueValue requested"
+    return stock.trueValue
+
   else:
     return -1
 

@@ -2,7 +2,10 @@
 
 #botRunner.sh, runs all bots a directory
 
-cd ./bots/
+#run server
+python server.py&
+
+cd ./bots
 
 for filename in $( ls bot* );
 do
