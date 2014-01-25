@@ -59,6 +59,7 @@ class Stock:
         sellNum = quantity
         self.sellQueue[sell_idx].quantity -= sellNum
 
+      self.price = price
       quantity -= sellNum
 
       sellerID = sellOrder.client_id
@@ -85,17 +86,17 @@ class Stock:
       else:
         buyNum = quantity
         self.buyQueue[buy_idx].quantity -= buyNum
-      quantity -= buyNum
       
+      self.price = price
+      quantity -= buyNum
+
       buyerID = buyOrder.client_id
       accounts[buyerID].availableFunds -= buyNum*price
       accounts[buyerID].portfolio[ticker] += buyNum
-      
       if quantity == 0:
         return 1
     return -1
-    
-  
+
   def totalBuyCost(self, quantity):
     """ return cost of purchasing specified quantity (iterates through sell
         queue until desired quantity purchased); -1 if quantity desired more
@@ -137,6 +138,7 @@ class Stock:
       if quantity  == 0:
         return cost
       return -1
+
   def checkQueues(self):
 
     while  self.bidask() != "error"  and self.bidask() <= 0:
@@ -154,10 +156,10 @@ class Stock:
 
       if buyQuantity < sellQuantity:
         numTransferred = buyQuantity
-         
+
         #removes the first buy order
         del self.buyQueue[0]
-         
+
          #reduces the first sell order
         self.sellQueue[0].quantity -= numTransferred
       else:
@@ -165,8 +167,9 @@ class Stock:
         del self.sellQueue[0]
 
         self.buyQueue[0].quantity -= numTransferred
-       
-       #update buyer account
+
+      self.price = buyPrice
+      #update buyer account
       accounts[buyerID].availableFunds -= numTransferred*buyPrice
       accounts[buyerID].portfolio[ticker] += numTransferred
 
@@ -174,7 +177,7 @@ class Stock:
       accounts[sellerID].availableFunds += numTransferred*price
       accounts[sellerID].portfolio[ticker] -= numTransferred
 
-              
+
   def sellQueueNum(self):
    total = 0
    for x in self.sellQueue:
@@ -193,6 +196,7 @@ class Stock:
     order = Order(account_id, quantity, price, self.ticker)
     self.buyQueue.append(order)
     self.buyQueue.sort(key = lambda order: order.price, reverse = True)
+    self.checkQueue()
     #by price in descending
     #O(n*logn)
 
@@ -200,7 +204,6 @@ class Stock:
     order = Order(account_id, quantity, price, self.ticker)
     self.sellQueue.append(order)
     self.sellQueue.sort(key = lambda order: order.price)
-    
+    self.checkQueue()
     #by price in ascending
     #O(n*logn)
-    

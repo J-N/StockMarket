@@ -22,6 +22,7 @@ def initMarket():
 # Account Actions
 def ask(account_id, ticker, price, quantity):
   """Add ask order to stock sell queue."""
+  global stocks
   stock = stocks[ticker]
   account = accounts[account_id]
   quantityAvailable = account.portfolio[ticker]
@@ -33,6 +34,7 @@ def ask(account_id, ticker, price, quantity):
 
 def bid(account_id, ticker, price, quantity):
   """Add bid order to stock bid queue."""
+  global stocks
   stock = stocks[ticker]
   account = accounts[account_id]
   if price * quantity > account.availableFunds:
@@ -40,10 +42,51 @@ def bid(account_id, ticker, price, quantity):
   stock.buyAt(quantity, price, account_id)
   stocks[ticker]=stock
   return 1
-  
-  
+
+def buy(account_id, ticker, quantity):
+  """Return 0 if insufficent funds or insufficient quantity; 1 for success."""
+  global stocks
+  account = accounts[account_id]
+  stock = stocks[ticker]
+
+  # Check sufficient quantity
+  if stock.sellQueueNum() < quantity:
+    print "Failed, insufficient quantity available"
+    return 0
+
+  # Check sufficient funds
+  if stock.totalBuyCost(quantity) > account.availableFunds:
+    print "Failed, insufficient funds"
+    return 0
+
+  stock.buy(quantity)
+  print "Bought", buyVolume, "shares of ticker:", ticker, "at price:", stock.bidask
+  return 1
+
+def sell(account_id, ticker, quantity):
+  """Return 0 if insufficient quantity; 1 for success."""
+  global stocks
+  account = accounts[account_id]
+  stock = stocks[ticker]
+
+  # Check sufficient quantity to sell
+  if account.portfolio[ticker] < quantity:
+    print "Failed, insufficient quantity in portfolio"
+    return 0
+
+  # Check sufficient quantity demanded
+  if stock.buyQueueNum() < quantity:
+    print "Failed, insufficient quantity demanded from market"
+    return 0
+
+  stock.sell(quantity)
+  stocks[ticker] = stock
+  print "Sold", sellVolume, "shares of ticker:", ticker, "at price:", stock.bidask
+  return 1
+
 def parseData(data):
   # parse client requests according to server_api
+  global stocks
   if data == "create":
     account = Account(stocks.keys())
     accounts[account.id] = account
@@ -60,44 +103,14 @@ def parseData(data):
   if action == "buy":
     ticker = split_data[2]
     buyVolume = int(split_data[3])
-    stock = stocks[ticker]
 
-    if buyVolume > stock.volume:
-      print "Failed, not enough shares available for purchase"
-      return 0
-    transactionCost = stock.bidask * buyVolume
-
-    if transactionCost > account.availableFunds:
-      print "Failed, insufficient funds"
-      return 0
-
-    account.availableFunds -= transactionCost
-    account.portfolio[ticker] += buyVolume
-    stock.volume -= buyVolume
-    #update stocks
-    stocks[ticker] = stock
-    print "Bought", buyVolume, "shares of ticker:", ticker, "at price:", stock.bidask
-    return 1
+    return buy(account_id, ticker, buyVolume)
 
   elif action == "sell":
     ticker = split_data[2]
     sellVolume = int(split_data[3])
-    #update stocks
-    stock = stocks[ticker]
-    volumeOwned = account.portfolio[ticker]
-    if sellVolume <= volumeOwned:
-      account.availableFunds += stock.bidask*sellVolume
-      volumeOwned -= sellVolume
 
-      #update stock volume and account volume
-      stock.volume += sellVolume
-      account.portfolio[ticker] = volumeOwned
-      stocks[ticker] = stock
-      print "Sold", sellVolume, "shares of ticker:", ticker, "at price:", stock.bidask        
-      return 1
-    else:
-      print "Failed, trying to sell more shares than are held"
-    return 0
+    return sell(account_id, ticker, sellVolume)
 
   elif action == "bid":
     ticker = split_data[2]
@@ -115,8 +128,8 @@ def parseData(data):
 
   elif action == "price":
     ticker = split_data[2]
-    print "Price of ticker:", ticker, "is", stocks[ticker].bidask
-    return stocks[ticker].bidask
+    print "Price of ticker:", ticker, "is", stocks[ticker].price
+    return stocks[ticker].price
 
   elif action == "volume":
     ticker = split_data[2]
@@ -146,6 +159,7 @@ def parseData(data):
 
 
 def main():
+  global stocks
   host = 'localhost'
   port = 19290
   backlog = 5
@@ -155,10 +169,16 @@ def main():
   s.listen(backlog)
   print("listening for connections on port 19290")
   initMarket()
+  counter = 0
   while True:
+    # Update true value every 20 cycles
+    if counter % 20 == 0:
+      for stock in stocks:
+        stocks[stock].updateTrueValue()
+
     client, address = s.accept()
     data = client.recv(size)
-    # print data
+    print data
     if data != 0:
       sendData = parseData(data)
     else:
@@ -170,6 +190,8 @@ def main():
     sendData = pickle.dumps(sendData)
     client.send(sendData)
     client.close()
+    counter += 1
+
 
 if __name__ == "__main__":
   main()
