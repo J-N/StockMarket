@@ -142,9 +142,9 @@ def parseData(data):
 
   elif action == "volume":
     ticker = split_data[2]
-    print "Number of stocks in buyQueue of", ticker, "is", stocks[ticker].buyQueueNum
-    print "Number of stocks in sellQueue of", ticker, "is", stocks[ticker].sellQueueNum
-    return (stocks[ticker].buyQueueNum,stocks[ticker].sellQueueNum)
+    print "Number of stocks in buyQueue of", ticker, "is", stocks[ticker].buyQueueNum()
+    print "Number of stocks in sellQueue of", ticker, "is", stocks[ticker].sellQueueNum()
+    return (stocks[ticker].buyQueueNum(),stocks[ticker].sellQueueNum())
 
   elif action == "portfolio":
     print "portfolio requested"
