@@ -5,7 +5,7 @@ port = 19290
 size = 1024
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(host, port)
+sock.connect((host, port))
 
 try:
     # Send data
@@ -18,7 +18,7 @@ try:
     amount_expected = len(message)
     
     while amount_received < amount_expected:
-        data = sock.recv(16)
+        data = sock.recv(size)
         amount_received += len(data)
         print  'received "%s"' % data
 finally:
