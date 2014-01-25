@@ -7,6 +7,31 @@ Suggest creating a 'true value' for each stock. Value is assigned randomly at be
 Then if Stock price is significantly greater than 'true value', sell the stock
 Also if stock price is significantly less than 'true value', buy the stock
 True value should only be accessible to 'gen public' trader
+
+For each stock, create stock object, store in list
+Cycle through list:
+Add stock price, true value
+if trueValue / stockPrice > 1.05
+get available stock
+stockToBuy = availableStock * 0.2
+marketBuy(stockToBuy / 2)
+stockToBuy /= 2
+increment = abs(trueValue - stockPrice) / 3
+bid(stockToBuy * 0.4 at $(StockPrice - increment))
+bid(stockToBuy * 0.3 at $(StockPrice + increment))
+bid(stockToBuy * 0.2 at $(StockPrice + 2 * increment))
+bid(stockToBuy * 0.1 at $(StockPrice + 3 * increment))
+
+elif trueValue / stockPrice < 0.95
+get your stock
+stockToSell = yourStock * 0.2
+marketSell(stockToSell / 2)
+stockToSell /= 2
+increment abs(trueValue - stockPrice) / 3
+ask(stockToSell * 0.4 at $(StockPrice + increment))
+ask(stockToSell * 0.3 at $(StockPrice - increment))
+ask(stockToSell * 0.2 at $(StockPrice - 2 * increment))
+ask(stockToSell * 0.2 at $(StockPrice - 3 * increment))
 """
 
 """

@@ -4,15 +4,15 @@
 #buys it immediately
 #sells it at a random price
 
-# import sys
+import sys
 import random
-# sys.path.insert(0, '../')
+sys.path.append('../')
 from traderbot import TraderBot
 
 #riskFactor represents how risky the bot is in general
 #it affects both how much money it's willing to wager, and how long it'll wait
 #before giving up
-riskFactor = .05 #fraction of original price
+riskFactor = 0.62 #<--- will be replaced by generator #fraction of original price
 riskFactorMultiplier = 3
 
 
@@ -25,24 +25,21 @@ startingPrice = -1
 while (True):
   #checks if portfolio is empty
   portfolio = robot.getPortfolio()
-  currentlyOwnedStock = ""
+  currentlyOwnedStock = -1
   stockQuantity = -1
   empty = True
-
-  for stock in stockArray:
-    if portfolio[stock] != 0:
+  for x in range(0,len(portfolio)):
+    if portfolio[str(x)] != 0:
         empty=False
-        currentlyOwnedStock = stock
-        stockQuantity=portfolio[stock]
-    
+        currentlyOwnedStock = str(x)
+        stockQuantity=portfolio[str(x)]
 
   if empty:
     print "portfolio is empty, picking a stock to buy"
     #buy algorithm
 
     #picks random stock
-    tickerNumber = random.randint(0, len(stockArray) -1)
-    ticker = stockArray[tickerNumber]
+    ticker = random.randint(0, len(portfolio) -1)
     print "decided to buy stock with ticker :", ticker
     startingPrice = robot.getPrice(ticker)
     print "price of stock: $", startingPrice, "per share"
@@ -50,12 +47,14 @@ while (True):
     #determines how much money it's willing to wager at once
     money = robot.getFunds()
     maxMoney = money*riskFactor*riskFactorMultiplier
+    if maxMoney > money:
+        maxMoney = money
     print "bot is willing to risk $" , maxMoney
     shares = (int)(maxMoney/startingPrice)
     print "purchasing", shares, "shares at $" , startingPrice, "per share"
 
     #ourchases stock
-    result = robot.bid(robot.accountID, shares, startingPrice, ticker)
+    result = robot.bid(robot.accountID, shares, price, ticker)
     if result == 'Accepted':
         print "trade accepted"
     elif result == 'Unsuccesful':
@@ -92,6 +91,3 @@ while (True):
         print "trade pending"
     else:
         print "not a recognizable order state"
-
-
-
