@@ -97,6 +97,7 @@ def parseData(data):
   else:
     return -1
 
+
 def main():
   host = 'localhost'
   port = 19290
@@ -116,6 +117,7 @@ def main():
     else:
       sendData = -1
     print sendData
+
     sendData = json.dumps(sendData)
     client.send(sendData)
     client.close()

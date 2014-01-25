@@ -107,10 +107,14 @@ class TraderBot:
     def getPortfolio(self):
         #returns an array of arrays containing stock and volume
         data = self.sendMessage('portfolio')
-        print 'Stocks:'
+        print 'Portfolio:'
         for stock in data:
             print stock
         return data
+
+    def ascii_encode_dict(self, data):
+        ascii_encode = lambda x: x.encode('ascii')
+        return dict(map(ascii_encode, pair) for pair in data.items())
     
     def sendMessage(self, message):
         self.connectToServer()
@@ -118,7 +122,14 @@ class TraderBot:
         print 'Sending message.'
         self.sock.sendall(str(self.accountID) + ',' + message)
         #recieve message
-        data = json.loads(self.sock.recv(1024))
+
+        data = self.sock.recv(1024)
+        unloadedData = json.loads(data)
+        if type(unloadedData) is dict:
+            print "unloaded data is a dict"
+            data = json.loads(data, object_hook = self.ascii_encode_dict)
+            
+        print data
         print 'Data received.'
         return data
 

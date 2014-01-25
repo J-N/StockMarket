@@ -29,8 +29,8 @@ while (True):
   stockQuantity = -1
   empty = True
   for stock in portfolio:
-    stock = stock.split(':')
-    print stock
+    #stock = stock.split(':')
+    print "stock info:", stock
     if int(stock[1]) != 0:
       empty = False
       currentlyOwnedStock = stock[0]
