@@ -4,7 +4,7 @@ import os
 import sys
 import random
 
-number = 10
+number = 100
 
 x =  000001
 while (x <= number):
