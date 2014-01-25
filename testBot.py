@@ -13,7 +13,8 @@ size = len(stockArray)
 
 print "Array Size", size
 
-randomStock = random.randint(0, size - 1)
+randomStockIdx = random.randint(0, size - 1)
+randomStock = stockArray[randomStockIdx]
 
 print "random stock ticker:", randomStock
 
