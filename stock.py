@@ -8,4 +8,4 @@ class Stock:
   def __init__(self, symbol):
     self.symbol = symbol
     self.volume = random.randint(10000, 100000)
-    self.earnings = random.randint(MIN_EARNINGS, MAX_EARNINGS)
+    self.earnings = random.randint(Stock.MIN_EARNINGS, Stock.MAX_EARNINGS)
