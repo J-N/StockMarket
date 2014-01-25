@@ -117,7 +117,7 @@ class TraderBot:
         print 'Sending message.'
         self.sock.sendall(str(self.accountID) + ',' + message)
         #recieve message
-        data = pickle.loads(self.sock.recv(1024))`
+        data = pickle.loads(self.sock.recv(1024))
         print data
         print 'Data received.'
         return data

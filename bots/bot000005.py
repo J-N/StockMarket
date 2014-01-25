@@ -12,7 +12,7 @@ from traderbot import TraderBot
 #riskFactor represents how risky the bot is in general
 #it affects both how much money it's willing to wager, and how long it'll wait
 #before giving up
-riskFactor = 0.24 <--- will be replaced by generator #fraction of original price
+riskFactor = 0.09 #<--- will be replaced by generator #fraction of original price
 riskFactorMultiplier = 3
 
 
@@ -28,8 +28,8 @@ while (True):
   currentlyOwnedStock = -1
   stockQuantity = -1
   empty = True
-  for x in range(0,len(portfolio))
-    if portfolio[str(x)] != 0
+  for x in range(0,len(portfolio)):
+    if portfolio[str(x)] != 0:
         empty=False
         currentlyOwnedStock = str(x)
         stockQuantity=portfolio[str(x)]
