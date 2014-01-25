@@ -38,28 +38,37 @@ Commands
 
 for all commands:
 returns -1 if invalid syntax
-    getid;
+    getid
         returns int id
     
-    id,buy,ticker,shares;
+    id,buy,ticker,shares
         returns int 1 if accepted, 0 if declined 
     
-    id,sell,ticker,shares;
+    id,sell,ticker,shares
         returns int 1 if accepted, 0 if declined
-    
-    id,price,ticker;
+
+    id,bid,ticker,price,quantity
+        returns int 1 if accepted, 0 if declined
+
+    id,ask,ticker,price,quantity
+        returns int 1 if accepted, 0 if declined
+
+    id,price,ticker
         returns int price
     
-    id,volume,ticker;
+    id,volume,ticker
         returns int volume
     
-    id,portfolio;
+    id,portfolio
         returns dict portfolio {symbol : volumeOwned}
 
-    id,funds;
+    id,orders
+        returns orders for account
+
+    id,funds
         returns double availableFunds
         
-    id,symbols;
+    id,symbols
         returns list of symbols
     
 """
