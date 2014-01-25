@@ -21,7 +21,7 @@ print "stock price:", price
 
 money = robot.getFunds()
 
-maxShares = money/price
+maxShares = 100
 
 confirmation = robot.buy(randomStock, maxShares)
 
@@ -34,9 +34,8 @@ portfolio = robot.getPortfolio()
 
 print "Portfolio before selling:"
 
-for array in portfolio:
-    print array
-    
+print portfolio
+
 confirmation = robot.sell(randomStock, maxShares)
 
 if (confirmation == 1):

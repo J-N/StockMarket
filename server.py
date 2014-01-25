@@ -18,7 +18,7 @@ def initMarket():
     stocks[ticker] = Stock(ticker)
 
 def parseData(data):
-  if data == "create;":
+  if data == "create":
     account = Account(stocks.keys())
     accounts[account.id] = account
     return account.id
@@ -26,13 +26,14 @@ def parseData(data):
   split_data = data.split(",")
   account_id = int(split_data[0])
   action = split_data[1]
+  account = accounts[account_id]
 
-  if action == "buy;":
+  if action == "buy":
     ticker = split_data[2]
-    volume = split_data[3]
-    account = accounts[account_id]
+    volume = int(split_data[3])
     stock = stocks[ticker]
     if volume <= stock.volume:
+      print  "volume less than max volume"
       if stock.bidask*volume <= account.availableFunds:
         account.availableFunds -= stock.bidask*volume
         account.portfolio[ticker] += volume
@@ -41,10 +42,9 @@ def parseData(data):
         return 1
     return 0
 
-  elif action == "sell;":
+  elif action == "sell":
     ticker = split_data[2]
-    volume = split_data[3]
-    account = accounts[account_id]
+    volume = int(split_data[3])
     stock = stocks[ticker]
     if volume <= account.portfolio[ticker]:
       account.availableFunds += stock.bidask*volume
@@ -54,21 +54,20 @@ def parseData(data):
       return 1
     return 0
 
-  elif action == "price;":
+  elif action == "price":
     ticker = split_data[2]
-    return stocks[ticker].price
-
-  elif action == "volume;":
+    return stocks[ticker].bidask
+  elif action == "volume":
     ticker = split_data[2]
     return stocks[ticker].volume
 
-  elif action == "portfolio;":
+  elif action == "portfolio":
     return account.portfolio
 
-  elif action == "funds;":
+  elif action == "funds":
     return account.availableFunds
 
-  elif action == "symbols;":
+  elif action == "symbols":
     return stocks.keys()
   else:
     return -1

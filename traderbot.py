@@ -13,7 +13,7 @@ class TraderBot:
         self.connectToServer()
         # Send data
         print 'Sending message.'
-        self.sock.sendall('create;')
+        self.sock.sendall('create')
         #recieve message
         self.accountID = json.loads(self.sock.recv(1024))
         print 'Created Account: ', self.accountID
@@ -75,9 +75,6 @@ class TraderBot:
     def getPortfolio(self):
         #returns an array of arrays containing stock and volume
         data = self.sendMessage('portfolio')
-        data = data.split(',')
-        for stock in data:
-            stock = stock.split(':')
         print 'Stocks:'
         for stock in data:
             print stock
@@ -87,7 +84,7 @@ class TraderBot:
         self.connectToServer()
         # Send data
         print 'Sending message.'
-        self.sock.sendall(str(self.accountID) + ',' + message + ';')
+        self.sock.sendall(str(self.accountID) + ',' + message)
         #recieve message
         data = json.loads(self.sock.recv(1024))
         print 'Data received.'
