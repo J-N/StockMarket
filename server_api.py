@@ -3,6 +3,17 @@ Port for communication: 19290
 
 Interface:
 
+{
+import json
+
+data sent as string can be converted using:
+data_unzipped = json.loads(string data)
+The type of the data will be according to return types listed below for each command
+}
+
+
+
+
 10 stocks:
     0..9
 
