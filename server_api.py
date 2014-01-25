@@ -54,6 +54,12 @@ returns -1 if invalid syntax
         returns int volume
     
     id,portfolio;
+        returns dict portfolio {symbol : volumeOwned}
+
     id,funds;
+        returns double availableFunds
+        
     id,symbols;
+        returns list of symbols
+    
 """

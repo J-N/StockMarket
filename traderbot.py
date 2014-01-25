@@ -12,23 +12,31 @@ class traderBot:
         print 'Created Account: ' + self.accountID
         
     def getSymbols():
+        #returns an array of all symbols
         data = sendMessage('symbols')
         data = data.split(',')
         print 'Symbols: ' + data
         return data
         
     def getPrice(symbol):
+        #gets the price of a specific symbol
         data = sendMessage('price,{0}'.format(symbol))
         data = float(data)
         print 'Price per Share: $' + data
         return data
         
     def getVolume(symbol):
+<<<<<<< HEAD
         data = loads(sendMessage('volume,{0}'.format(symbol))
+=======
+        #gets the available volume of the stock
+        data = sendMessage('volume,{0}'.format(symbol))
+>>>>>>> 0ac3740def7f7ef42d37c08a64775078dd4b56df
         data = int(data)
         return data
         
     def buy(symbol, quantity):
+        #attempts to buy a certain quantity of stock
         data = sendMessage('buy,{0},{1}'.format(symbol,quantity))
         data = int(data)
         if data == 1:
@@ -42,6 +50,7 @@ class traderBot:
         return data
     
     def sell(symbol, quantity):
+        #attempts to sell a given quantity
         data = sendMessage('sell,{0},{1}'.format(symbol,quantity))
         data = int(data)
         if data == 1:
@@ -55,12 +64,14 @@ class traderBot:
         return data
     
     def getFunds():
+        #returns the available funds in the account
         data = sendMessage('funds')
         data = float(data)
         print 'Funds: $' + data
         return data
     
     def getPortfolio():
+        #returns an array of arrays containing stock and volume
         data = sendMessage('portfolio')
         data = data.split(',')
         for stock in data:
@@ -81,8 +92,12 @@ class traderBot:
             return data
 
     def error(code):
+        #eventually will handle non-zero errors
     
-    def __init__(self):
+    def __init__(self, accountID):
+        #when account id is provided by brain
         self.host = 'localhost'
         self.port = 19290
         self.connectToServer()
+        if accountID != 0
+            self.accountID = accountID
