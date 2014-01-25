@@ -30,7 +30,10 @@ def ask(account_id, ticker, price, quantity):
   quantityAvailable = account.portfolio[ticker]
   if quantity > quantityAvailable:
     return 0
+
+  print "Account ID:", account_id  
   stock.sellAt(quantity, price, account_id)
+
   stocks[ticker]=stock
   return 1
 
@@ -41,6 +44,7 @@ def bid(account_id, ticker, price, quantity):
   account = accounts[account_id]
   if price * quantity > account.availableFunds:
     return 0
+  print "Account ID:", account_id  
   stock.buyAt(quantity, price, account_id)
   stocks[ticker]=stock
   return 1

@@ -187,14 +187,14 @@ class Stock:
     order = Order(account_id, quantity, price, self.ticker)
     self.buyQueue.append(order)
     self.buyQueue.sort(key = lambda order: order.price, reverse = True)
-    self.checkQueue()
+    self.checkQueues()
     #by price in descending
     #O(n*logn)
 
-  def sellAt(self, quantity, price, acccount_id):
+  def sellAt(self, quantity, price, account_id):
     order = Order(account_id, quantity, price, self.ticker)
     self.sellQueue.append(order)
     self.sellQueue.sort(key = lambda order: order.price)
-    self.checkQueue()
+    self.checkQueues()
     #by price in ascending
     #O(n*logn)
