@@ -38,7 +38,8 @@ Commands
     getid;
     id,buy,ticker,shares;
     id,sell,ticker,shares;
-    id,info,int ticker;
+    id,priceInfo,ticker;
+    id,volumeInfo,ticker;
     id,portfolio;
     id,account;
     id,all;
