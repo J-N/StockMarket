@@ -35,11 +35,12 @@ getPortfolio(): return dictionary (symbol: volume)
 
 Preface all commands with unique id (received from createAccount())
 Commands
-    string buy,int ticker,int shares;
-    string sell,int ticker,int shares;
-    string info,int ticker;
-    string portfolio;
-    string account;
-    string all;
-    string done;
+    getid;
+    id,buy,ticker,shares;
+    id,sell,ticker,shares;
+    id,info,int ticker;
+    id,portfolio;
+    id,account;
+    id,all;
+    id,done;
 """
