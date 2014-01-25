@@ -64,7 +64,39 @@ class TraderBot:
             data = False
         print 'Successful: ', data
         return data
-    
+
+    def bid(self, client_id, quantity, price, symbol):
+        #attempts to sell a given quantity
+        data = self.sendMessage('bid,{0},{1}'.format(symbol,quantity))
+        data = int(data)
+        if data == 1:
+            data = 'Accepted'
+        elif data == 0:
+            data = 'Pending'
+        elif data == -1
+            data = 'Unsuccesful'
+        else:
+            # error(data) for future error codes
+            data = False
+        print 'Successful: ', data
+        return data
+
+    def bid(self, client_id, quantity, price, symbol):
+        #attempts to sell a given quantity
+        data = self.sendMessage('sell,{0},{1}'.format(symbol,quantity))
+        data = int(data)
+        if data == 1:
+            data = 'Accepted'
+        elif data == 0:
+            data = 'Pending'
+        elif data == -1
+            data = 'Unsuccesful'
+        else:
+            # error(data) for future error codes
+            data = False
+        print 'Successful: ', data
+        return data
+        
     def getFunds(self):
         #returns the available funds in the account
         data = self.sendMessage('funds')
