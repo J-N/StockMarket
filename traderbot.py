@@ -37,9 +37,18 @@ class TraderBot:
         
     def getVolume(self, symbol):
         #gets the available volume of the stock
+        #returns a tuple (buyVolume, sellVolume)
         data = self.sendMessage('volume,{0}'.format(symbol))
         data = int(data)
         return data
+
+    def getBuyVolume (self, symbol):
+        data = self.sendMessage('volume,{0}'.format(symbol))
+        return data[0]
+
+    def getSellVolume(self, symbol):
+        data = self.sendMessage('volume,{0}'.format(symbol))
+        return data[1]
         
     def buy(self, symbol, quantity):
         #attempts to buy a certain quantity of stock
@@ -71,6 +80,8 @@ class TraderBot:
 
     def bid(self, quantity, price, symbol):
         #attempts to buy a given quantity
+
+        print "Attempting to buy stock with ticker: ", symbol
         data = self.sendMessage('bid,{0},{1},{2}'.format(symbol,price,quantity))
         data = int(data)
         if data == 1:
@@ -87,6 +98,7 @@ class TraderBot:
 
     def ask(self, quantity, price, symbol):
         #attempts to sell a given quantity
+        print "Attempting to sell stock with ticker: ", symbol
         data = self.sendMessage('ask,{0},{1},{2}'.format(symbol,price,quantity))
         data = int(data)
         if data == 1:

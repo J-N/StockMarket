@@ -78,7 +78,7 @@ while True:
       #bid for 2 percent of total stock @ significantly above market value
       #bid for 1 percent of total stock @ true value
       if trueValue/price >1.05:
-        stockToBuy = 0.2 * robot.getVolume(ticker)
+        stockToBuy = 0.2 * robot.getSellVolume(ticker)
         robot.bid((int)(stockToBuy/2), price, ticker)
         stockToBuy/= 2
         robot.bid((int)(stockToBuy*0.4), price - increment, ticker)
@@ -94,7 +94,7 @@ while True:
       if trueValue/price < 0.95:
         stockToSell = 0.3 * portfolio[ticker]
         robot.ask((int)(stockToSell/2), price, ticker)
-        stockToBuy/= 2
+        stockToSell/= 2
         robot.ask((int)(stockToSell*0.4), price + increment, ticker)
         robot.ask((int)(stockToSell*0.3), price - increment, ticker)
         robot.ask((int)(stockToSell*0.2), price - 2 * increment, ticker)
