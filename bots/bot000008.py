@@ -4,15 +4,15 @@
 #buys it immediately
 #sells it at a random price
 
-# import sys
+import sys
 import random
-# sys.path.insert(0, '../')
+sys.path.append('../')
 from traderbot import TraderBot
 
 #riskFactor represents how risky the bot is in general
 #it affects both how much money it's willing to wager, and how long it'll wait
 #before giving up
-riskFactor = 0.92 <--- will be replaced by generator #fraction of original price
+riskFactor = 0.63 <--- will be replaced by generator #fraction of original price
 riskFactorMultiplier = 3
 
 

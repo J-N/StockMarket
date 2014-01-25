@@ -4,7 +4,7 @@ import os
 import sys
 import random
 
-number = 100
+number = 10
 
 x =  000001
 while (x <= number):
@@ -14,5 +14,6 @@ while (x <= number):
 	clean  = temp.read().replace("###", str(random.randint(0,100)*.01))
 	output.write(clean)
 	output.close()
+	temp.close()
 	x += 1
 sys.exit()
