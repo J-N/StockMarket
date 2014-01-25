@@ -13,9 +13,12 @@ student = open('studentCode'+id+'.txt')
 temp  = open('../studentTemplate.gen', 'r')
 output = open('../bots/student'+str(id)+'.py', 'w')
 
-clean  = temp.read().replace("#studentCode#",student.read)
-output.write(clean)
+newcode  = temp.read().replace('###',id) + '\n' + student.read()
+
+output.write(newcode)
 output.close()
+
 temp.close()
+
 student.close()
 sys.exit()
