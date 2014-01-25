@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 """
-A simple echo server
+Stock Market server that manages client transactions.
 """
 
-import socket
 import json
+import socket
 from account import Account
 from stock import Stock
 
@@ -18,6 +18,7 @@ def initMarket():
     stocks[ticker] = Stock(ticker)
 
 def parseData(data):
+  # parse client requests according to server_api
   if data == "create":
     account = Account(stocks.keys())
     accounts[account.id] = account
@@ -33,7 +34,6 @@ def parseData(data):
     volume = int(split_data[3])
     stock = stocks[ticker]
     if volume <= stock.volume:
-      print  "volume less than max volume"
       if stock.bidask*volume <= account.availableFunds:
         account.availableFunds -= stock.bidask*volume
         account.portfolio[ticker] += volume
