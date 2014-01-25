@@ -1,4 +1,4 @@
-import traderBot
+from traderbot import traderBot
 
 robot = traderBot.traderBot()
 
