@@ -25,7 +25,7 @@ for ticker in stockArray
 			
 		price = robot.getPrice(ticker)
 
-		result = robot.ask(robot.accountID, (int)portfolio[ticker] *marketFraction , price, ticker)
+		result = robot.ask((int)portfolio[ticker] *marketFraction , price, ticker)
 		if result == 'Accepted':
         	print "trade accepted"
     	elif result == 'Unsuccesful':
@@ -34,7 +34,7 @@ for ticker in stockArray
         	print "trade pending"
     	else:
         	print "not a recognizable order state"
-		result = robot.ask(robot.accountID, (int)portfolio[ticker]*aboveMarket, price*1.10, ticker)
+		result = robot.ask((int)portfolio[ticker]*aboveMarket, price*1.10, ticker)
 		if result == 'Accepted':
         	print "trade accepted"
     	elif result == 'Unsuccesful':
@@ -43,7 +43,7 @@ for ticker in stockArray
         	print "trade pending"
     	else:
         	print "not a recognizable order state"
-		result = robot.ask(robot.accountID, (int)portfolio[ticker]*tenBelowMarket, price*0.9, ticker)
+		result = robot.ask((int)portfolio[ticker]*tenBelowMarket, price*0.9, ticker)
 		if result == 'Accepted':
         	print "trade accepted"
     	elif result == 'Unsuccesful':
@@ -52,7 +52,7 @@ for ticker in stockArray
         	print "trade pending"
     	else:
         	print "not a recognizable order state"
-		result = robot.ask(robot.accountID, (int)portfolio[ticker]*fiveBelowMarket, price*0.95, ticker)
+		result = robot.ask((int)portfolio[ticker]*fiveBelowMarket, price*0.95, ticker)
 		if result == 'Accepted':
 	        print "trade accepted"
 	    elif result == 'Unsuccesful':
@@ -79,12 +79,12 @@ while True:
 			#bid for 1 percent of total stock @ true value
 			if trueValue/price >1.05:
 				stockToBuy = 0.2 * robot.getVolume(ticker)
-				robot.bid(robot.accountID, (int)stockToBuy/2, price, ticker)
+				robot.bid((int)stockToBuy/2, price, ticker)
 				stockToBuy/= 2
-				robot.bid(robot.accountID, (int)stockToBuy*0.4, price - increment, ticker)
-				robot.bid(robot.accountID, (int)stockToBuy*0.3, price + increment, ticker)
-				robot.bid(robot.accountID, (int)stockToBuy*0.2, price + 2 * increment, ticker)
-				robot.bid(robot.accountID, (int)stockToBuy*0.1, price + 3 * increment, ticker)
+				robot.bid((int)stockToBuy*0.4, price - increment, ticker)
+				robot.bid((int)stockToBuy*0.3, price + increment, ticker)
+				robot.bid((int)stockToBuy*0.2, price + 2 * increment, ticker)
+				robot.bid((int)stockToBuy*0.1, price + 3 * increment, ticker)
 
 			#ask for 10 percent of the total stock @ market value
 			#ask for 4 percent of total stock @ above market value
@@ -93,11 +93,11 @@ while True:
 			#ask for 1 percent of total stock @ true value
 			if trueValue/price < 0.95:
 				stockToSell = 0.3 * portfolio[ticker]
-				robot.ask(robot.accountID, (int)stockToSell/2, price, ticker)
+				robot.ask((int)stockToSell/2, price, ticker)
 				stockToBuy/= 2
-				robot.ask(robot.accountID, (int)stockToSell*0.4, price + increment, ticker)
-				robot.ask(robot.accountID, (int)stockToSell*0.3, price - increment, ticker)
-				robot.ask(robot.accountID, (int)stockToSell*0.2, price - 2 * increment, ticker)
-				robot.ask(robot.accountID, (int)stockToSell*0.1, price - 3 * increment, ticker)
+				robot.ask((int)stockToSell*0.4, price + increment, ticker)
+				robot.ask((int)stockToSell*0.3, price - increment, ticker)
+				robot.ask((int)stockToSell*0.2, price - 2 * increment, ticker)
+				robot.ask((int)stockToSell*0.1, price - 3 * increment, ticker)
 
 	
