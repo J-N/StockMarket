@@ -35,11 +35,24 @@ getPortfolio(): return dictionary (symbol: volume)
 
 Preface all commands with unique id (received from createAccount())
 Commands
+
+for all commands:
+returns -1 if invalid syntax
     getid;
+        returns int id
+    
     id,buy,ticker,shares;
+        returns int 1 if accepted, 0 if declined 
+    
     id,sell,ticker,shares;
+        returns int 1 if accepted, 0 if declined
+    
     id,price,ticker;
+        returns int price
+    
     id,volume,ticker;
+        returns int volume
+    
     id,portfolio;
     id,funds;
     id,symbols;
