@@ -1,5 +1,6 @@
 #trader v. 0.1
 import socket
+import json
 
 class traderBot:
     def connectToServer():
@@ -7,7 +8,7 @@ class traderBot:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         self.sock.connect((self.host, self.port))
         self.sock.send('create')
-        self.accountID = self.sock.recv(1024)
+        self.accountID = json.loads(self.sock.recv(1024))
         print 'Created Account: ' + self.accountID
         
     def getSymbols():
@@ -23,7 +24,7 @@ class traderBot:
         return data
         
     def getVolume(symbol):
-        data = sendMessage('volume,{0}'.format(symbol))
+        data = loads(sendMessage('volume,{0}'.format(symbol))
         data = int(data)
         return data
         
@@ -75,7 +76,7 @@ class traderBot:
             print 'Sending message.'
             sock.sendall(self.accountID + ',' + message + ';')
             #recieve message
-            data = sock.recv(1024)
+            data = json.loads(sock.recv(1024))
             print 'Data received.'
             return data
 
