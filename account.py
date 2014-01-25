@@ -5,4 +5,4 @@ class Account:
     self.id = Account.class_counter
     Account.class_counter += 1
     self.availableFunds = 1000000.0
-    self.portfolio = {}
+    self.portfolio = {} #TODO: instantiate portfolio to zero for all stocks
