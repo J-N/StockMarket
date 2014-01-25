@@ -1,22 +1,23 @@
-from traderbot import traderBot
+import random
+from traderbot import TraderBot
 
-robot = traderBot.traderBot()
+robot = TraderBot()
 
 stockArray = robot.getSymbols()
 
-print "Stock Array" + array
+print "Stock Array", stockArray
 
-size = stockArray.count()
+size = len(stockArray)
 
-print "Array Size" + size
+print "Array Size", size
 
 randomStock = random.randint(0, size - 1)
 
-print "random stock ticker:" + randomStock
+print "random stock ticker:", randomStock
 
 price = robot.getPrice(randomStock)
 
-print "stock price:" + price
+print "stock price:", price
 
 money = robot.getFunds()
 
@@ -24,28 +25,28 @@ maxShares = money/price
 
 confirmation = robot.buy(randomStock, maxShares)
 
-if (confirmation == 1)
+if (confirmation == 1):
     print "buy confirmed"
-else
+else:
     print "buy failed"
     
 portfolio = robot.getPortfolio()
 
 print "Portfolio before selling:"
 
-for (array in portfolio)
+for array in portfolio:
     print array
     
 confirmation = robot.sell(randomStock, maxShares)
 
-if (confirmation == 1)
+if (confirmation == 1):
     print "sell confirmed"
-else
+else:
     print "sell failed"
 
 portfolio = robot.getPortfolio()
 
 print "Portfolio before selling:"
 
-for (array in portfolio)
+for array in portfolio:
     print array

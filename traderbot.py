@@ -2,80 +2,79 @@
 import socket
 import json
 
-class traderBot:
-    def connectToServer():
+class TraderBot:
+    def connectToServer(self):
         #connects to server, requests account
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         self.sock.connect((self.host, self.port))
 
-    def createAccount():
+    def createAccount(self):
         #requests a new ID
-        self.sock.send('create')
+        self.connectToServer()
+        # Send data
+        print 'Sending message.'
+        self.sock.sendall('create;')
+        #recieve message
         self.accountID = json.loads(self.sock.recv(1024))
-        print 'Created Account: ' + self.accountID
-        
-    def getSymbols():
+        print 'Created Account: ', self.accountID
+
+    def getSymbols(self):
         #returns an array of all symbols
-        data = sendMessage('symbols')
-        data = data.split(',')
-        print 'Symbols: ' + data
+        data = self.sendMessage('symbols')
+        print 'Symbols: ', data
         return data
         
-    def getPrice(symbol):
+    def getPrice(self, symbol):
         #gets the price of a specific symbol
-        data = sendMessage('price,{0}'.format(symbol))
+        data = self.sendMessage('price,{0}'.format(symbol))
         data = float(data)
-        print 'Price per Share: $' + data
+        print 'Price per Share: $', data
         return data
         
-    def getVolume(symbol):
-<<<<<<< HEAD
-        data = loads(sendMessage('volume,{0}'.format(symbol))
-=======
+    def getVolume(self, symbol):
         #gets the available volume of the stock
-        data = sendMessage('volume,{0}'.format(symbol))
->>>>>>> 0ac3740def7f7ef42d37c08a64775078dd4b56df
+        data = self.sendMessage('volume,{0}'.format(symbol))
         data = int(data)
         return data
         
-    def buy(symbol, quantity):
+    def buy(self, symbol, quantity):
         #attempts to buy a certain quantity of stock
-        data = sendMessage('buy,{0},{1}'.format(symbol,quantity))
+        data = self.sendMessage('buy,{0},{1}'.format(symbol,quantity))
         data = int(data)
         if data == 1:
-            data = true
+            data = True
         elif data == 0:
-            data = false
+            data = False
         else:
             error(data)
-            data = false
-        print 'Successful: ' + data
+            data = False
+        print 'Successful: ', data
         return data
     
-    def sell(symbol, quantity):
+    def sell(self, symbol, quantity):
         #attempts to sell a given quantity
-        data = sendMessage('sell,{0},{1}'.format(symbol,quantity))
+        data = self.sendMessage('sell,{0},{1}'.format(symbol,quantity))
         data = int(data)
         if data == 1:
-            data = true
+            data = True
         elif data == 0:
-            data = false
+            data = False
         else:
             error(data)
-            data = false
-        print 'Successful: ' + data
+            data = False
+        print 'Successful: ', data
         return data
     
-    def getFunds():
+    def getFunds(self):
         #returns the available funds in the account
-        data = sendMessage('funds')
+        data = self.sendMessage('funds')
         data = float(data)
-        print 'Funds: $' + data
+        print 'Funds: $', data
         return data
     
-    def getPortfolio():
+    def getPortfolio(self):
         #returns an array of arrays containing stock and volume
-        data = sendMessage('portfolio')
+        data = self.sendMessage('portfolio')
         data = data.split(',')
         for stock in data:
             stock = stock.split(':')
@@ -84,29 +83,24 @@ class traderBot:
             print stock
         return data
     
-    def sendMessage(message):
-        try:
-            # Send data
-            print 'Sending message.'
-            sock.sendall(self.accountID + ',' + message + ';')
-            #recieve message
-            data = json.loads(sock.recv(1024))
-            print 'Data received.'
-            return data
+    def sendMessage(self, message):
+        self.connectToServer()
+        # Send data
+        print 'Sending message.'
+        self.sock.sendall(str(self.accountID) + ',' + message + ';')
+        #recieve message
+        data = json.loads(self.sock.recv(1024))
+        print 'Data received.'
+        return data
 
-    def error(code):
+    # def error(code):
         #eventually will handle non-zero errors
-    
-    def __init__(self):
-        #when account id is provided by brain
-        self.host = 'localhost'
-        self.port = 19290
-        self.connectToServer()
-        createAccount()
 
-    def __init__(self, accountID):
+    def __init__(self, accountID = 0):
         #when account id is provided by brain
         self.host = 'localhost'
         self.port = 19290
-        self.connectToServer()
-        self.accountID = accountID
+        if accountID != 0:
+            self.accountID = accountID
+        else:
+            self.createAccount()

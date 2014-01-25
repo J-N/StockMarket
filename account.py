@@ -1,6 +1,6 @@
 class Account:
   """Account class used by server to maintain client connections. """
-  class_counter = 0
+  class_counter = 1
   # stocks is a list of symbols
   def __init__(self, stocks):
     self.id = Account.class_counter
