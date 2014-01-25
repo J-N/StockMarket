@@ -14,10 +14,10 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host,port))
 s.listen(backlog)
 print("listening for connections on port 19290")
-while 1:
+while True:
   client, address = s.accept()
   data = client.recv(size)
-  if data:
+  if data!=0:
     client.send(data)
   client.close()
 
