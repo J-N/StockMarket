@@ -162,7 +162,7 @@ def parseData(data):
     ticker = split_data[2]
     stock = stocks[ticker]
     print "trueValue requested"
-    return stock.trueValue()
+    return stock.trueValue
 
   else:
     return -1
