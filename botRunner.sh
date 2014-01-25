@@ -2,9 +2,10 @@
 
 #botRunner.sh, runs all bots a directory
 
-cd ./bots
+cd ./bots/
 
-for filename in ls
+for filename in $( ls bot* );
 do
-	echo $filename
+	echo "Executing:" $filename
+	python $filename&
 done
