@@ -7,21 +7,20 @@ Interface:
     0..9
 
 Stock: symbol, volume, bid-ask price
-        
+
 Public functions: (available to client)
 
-getAll() : list of symbols
+getSymbols() : list of symbols
 
-getInfo(string symbol) : returns the bid ask price
+getPrice(string symbol): return the bid ask price (double)
+getVolume(string symbol): return the volume (int)
 
 buy(string symbol, int quantity): returns 1/0 (for accept/decline)
-
 sell(string symbol, int quantity): returns 1/0 (for accept/decline)
 
-getAccount()
+getFunds(): return available funds of current client
+getPortfolio(): return dictionary (symbol: volume)
 
-getPortfolio()
- 
 Commands
     string buy,int ticker,int shares;
     string sell,int ticker,int shares;
