@@ -3,9 +3,9 @@ import random
 class Stock:
   """A simple Stock class"""
 
-  MIN_EARNINGS = -10000
-  MAX_EARNINGS = 10000
+  MIN_PRICE = 5
+  MAX_PRICE = 500
   def __init__(self, symbol):
     self.symbol = symbol
     self.volume = random.randint(10000, 100000)
-    self.earnings = random.randint(Stock.MIN_EARNINGS, Stock.MAX_EARNINGS)
+    self.bidask = random.randint(Stock.MIN_PRICE, Stock.MAX_PRICE)

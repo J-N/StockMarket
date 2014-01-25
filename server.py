@@ -3,7 +3,8 @@
 """
 Stock Market server that manages client transactions.
 """
-
+# return values: 1(accept transaction), 0(decline transaction),
+# -1 (invalid syntax/error)
 import cPickle as pickle
 import socket
 from account import Account
@@ -14,7 +15,8 @@ accounts = {}
 
 def initMarket():
   # initialize stocks
-  for ticker in "0123456789":
+  for letter in "ABCDEFGHIJ":
+    ticker = "Stock" + letter
     stocks[ticker] = Stock(ticker)
 
 # Account Actions
@@ -33,25 +35,37 @@ def parseData(data):
   if data == "create":
     account = Account(stocks.keys())
     accounts[account.id] = account
+    print "Account created with account id:", account.id
     return account.id
 
   split_data = data.split(",")
   account_id = int(split_data[0])
   action = split_data[1]
   account = accounts[account_id]
+  print "Loaded account:", account_id
+  print "Funds Available:", account.availableFunds
 
   if action == "buy":
     ticker = split_data[2]
     volume = int(split_data[3])
     stock = stocks[ticker]
-    if volume <= stock.volume:
-      if stock.bidask*volume <= account.availableFunds:
-        account.availableFunds -= stock.bidask*volume
-        account.portfolio[ticker] += volume
-        stock.volume -= volume
-        stocks[ticker] = stock
-        return 1
-    return 0
+
+    if buyVolume > stock.volume:
+      print "Failed, not enough shares available for purchase"
+      return 0
+    transactionCost = stock.bidask * buyVolume
+
+    if transactionCost > account.availableFunds:
+      print "Failed, insufficient funds"
+      return 0
+
+    account.availableFunds -= transactionCost
+    account.portfolio[ticker] += buyVolume
+    stock.volume -= buyVolume
+    #update stocks
+    stocks[ticker] = stock
+    print "Bought", buyVolume, "shares of ticker:", ticker, "at price:", stock.bidask
+    return 1
 
   elif action == "sell":
     ticker = split_data[2]
@@ -81,7 +95,9 @@ def parseData(data):
 
   elif action == "price":
     ticker = split_data[2]
+    print "Price of ticker:", ticker, "is", stocks[ticker].bidask
     return stocks[ticker].bidask
+
   elif action == "volume":
     ticker = split_data[2]
     return stocks[ticker].volume
