@@ -18,9 +18,11 @@ getVolume(string symbol): return the volume (int)
 buy(string symbol, int quantity): returns 1/0 (for accept/decline)
 sell(string symbol, int quantity): returns 1/0 (for accept/decline)
 
+createAccount(): return unique id (int) for newly created account
 getFunds(): return available funds of current client
 getPortfolio(): return dictionary (symbol: volume)
 
+Preface all commands with unique id (received from createAccount())
 Commands
     string buy,int ticker,int shares;
     string sell,int ticker,int shares;
