@@ -108,14 +108,8 @@ class TraderBot:
         #returns an array of arrays containing stock and volume
         data = self.sendMessage('portfolio')
         print data
-        print 'Portfolio:'
-        for stock in data:
-            print data[stock]
+        print 'Portfolio:',data
         return data
-
-    def ascii_encode_dict(self, data):
-        ascii_encode = lambda x: x.encode('ascii')
-        return dict(map(ascii_encode, pair) for pair in data.items())
     
     def sendMessage(self, message):
         self.connectToServer()
