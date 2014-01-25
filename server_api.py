@@ -1,4 +1,6 @@
 """
+Port for communication: 19290
+
 Interface:
 
 10 stocks:
