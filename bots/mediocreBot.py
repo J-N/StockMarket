@@ -1,4 +1,6 @@
-from ../traderbot import traderBot
+import sys
+sys.path.insert(0, '../')
+from traderbot import traderBot
 
 robot = traderBot.traderBot()
 
