@@ -12,16 +12,30 @@ Public functions: (available to client)
 
 getAll() : list of symbols
 
-getInfo(string symbol) : returns the bid ask price
+getStock(string symbol) : returns the stock object
+
+
 
 buy(string symbol, int quantity): returns 1/0 (for accept/decline)
 
 sell(string symbol, int quantity): returns 1/0 (for accept/decline)
 
-getAccount()
-
+getFunds()
+    returns double money available 
+    
+    
 getPortfolio()
- 
+    returns dictionary with keys: stocks
+                            values: number of shares
+
  
 
+"""
+"""
+Ideas for next version:
+
+Overloaded getStock function:
+
+getStock(string symbol, string data_field) : returns int volume or double  
+data_field can be: volume, price    
 """
