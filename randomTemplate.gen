@@ -4,9 +4,9 @@
 #buys it immediately
 #sells it at a random price
 
-# import sys
+import sys
 import random
-# sys.path.insert(0, '../')
+sys.path.append('../')
 from traderbot import TraderBot
 
 #riskFactor represents how risky the bot is in general

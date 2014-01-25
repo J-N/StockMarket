@@ -12,7 +12,7 @@ from traderbot import TraderBot
 #riskFactor represents how risky the bot is in general
 #it affects both how much money it's willing to wager, and how long it'll wait
 #before giving up
-riskFactor = 0.52 <--- will be replaced by generator #fraction of original price
+riskFactor = 0.44 <--- will be replaced by generator #fraction of original price
 riskFactorMultiplier = 3
 
 
