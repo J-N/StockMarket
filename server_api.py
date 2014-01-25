@@ -33,11 +33,12 @@ getFunds(): return available funds of current client
 getPortfolio(): return dictionary (symbol: volume)
 
 Commands
-    string buy,int ticker,int shares;
-    string sell,int ticker,int shares;
-    string info,int ticker;
-    string portfolio;
-    string account;
-    string all;
-    string done;
+    getid;
+    id,buy,ticker,shares;
+    id,sell,ticker,shares;
+    id,info,int ticker;
+    id,portfolio;
+    id,account;
+    id,all;
+    id,done;
 """
