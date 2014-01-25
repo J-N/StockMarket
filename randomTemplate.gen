@@ -47,6 +47,8 @@ while (True):
     #determines how much money it's willing to wager at once
     money = robot.getFunds()
     maxMoney = money*riskFactor*riskFactorMultiplier
+    if maxMoney > money:
+        maxMoney = money
     print "bot is willing to risk $" , maxMoney
     shares = (int)(maxMoney/startingPrice)
     print "purchasing", shares, "shares at $" , startingPrice, "per share"
@@ -89,6 +91,3 @@ while (True):
         print "trade pending"
     else:
         print "not a recognizable order state"
-
-
-
