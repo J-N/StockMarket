@@ -23,13 +23,25 @@ def initMarket():
 def ask(account_id, ticker, price, quantity):
   """Add ask order to stock sell queue."""
   stock = stocks[ticker]
-  return stock.sellAt(quantity, price, account_id)
+  account = accounts[account_id]
+  quantityAvailable = account.portfolio[ticker]
+  if quantity > quantityAvailable:
+    return 0
+  stock.sellAt(quantity, price, account_id)
+  stocks[ticker]=stock
+  return 1
 
 def bid(account_id, ticker, price, quantity):
   """Add bid order to stock bid queue."""
   stock = stocks[ticker]
-  return stock.buyAt(quantity, price, account_id)
-
+  account = accounts[account_id]
+  if price * quantity > account.availableFunds:
+    return 0
+  stock.buyAt(quantity, price, account_id)
+  stocks[ticker]=stock
+  return 1
+  
+  
 def parseData(data):
   # parse client requests according to server_api
   if data == "create":
