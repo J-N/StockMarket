@@ -1,6 +1,6 @@
 #trader v. 0.1
 import socket
-import json
+import cPickle as pickle
 
 class TraderBot:
     def connectToServer(self):
@@ -15,7 +15,7 @@ class TraderBot:
         print 'Sending message.'
         self.sock.sendall('create')
         #recieve message
-        self.accountID = json.loads(self.sock.recv(1024))
+        self.accountID = pickle.loads(self.sock.recv(1024))
         print 'Created Account: ', self.accountID
 
     def getSymbols(self):
@@ -107,9 +107,10 @@ class TraderBot:
     def getPortfolio(self):
         #returns an array of arrays containing stock and volume
         data = self.sendMessage('portfolio')
+        print data
         print 'Portfolio:'
         for stock in data:
-            print stock
+            print data[stock]
         return data
 
     def ascii_encode_dict(self, data):
@@ -124,11 +125,7 @@ class TraderBot:
         #recieve message
 
         data = self.sock.recv(1024)
-        unloadedData = json.loads(data)
-        if type(unloadedData) is dict:
-            print "unloaded data is a dict"
-            data = json.loads(data, object_hook = self.ascii_encode_dict)
-            
+        data = pickle.loads(data)
         print data
         print 'Data received.'
         return data

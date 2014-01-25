@@ -4,7 +4,7 @@
 Stock Market server that manages client transactions.
 """
 
-import json
+import cPickle as pickle
 import socket
 from account import Account
 from stock import Stock
@@ -118,7 +118,7 @@ def main():
       sendData = -1
     print sendData
 
-    sendData = json.dumps(sendData)
+    sendData = pickle.dumps(sendData)
     client.send(sendData)
     client.close()
 

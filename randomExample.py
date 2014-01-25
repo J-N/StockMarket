@@ -31,7 +31,7 @@ while (True):
   for stock in portfolio:
     #stock = stock.split(':')
     print "stock info:", stock
-    if int(stock[1]) != 0:
+    if int(portfolio[stock]) != 0:
       empty = False
       currentlyOwnedStock = stock[0]
       stockQuantity = stock[1]
