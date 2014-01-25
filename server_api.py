@@ -4,7 +4,7 @@ Port for communication: 19290
 Interface:
 
 {
-mport json
+import json
 
 data sent as string can be converted using:
 data_unzipped = json.loads(string data)
