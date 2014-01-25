@@ -11,18 +11,35 @@ class traderBot:
         
     def getSymbols():
         data = sendMessage('symbols')
+        data = data.split(',')
         return data
         
     def getPrice(symbol):
         data = sendMessage('price,{0}'.format(symbol))
-        return data
+        return float(data)
         
     def getVolume(symbol):
         data = sendMessage('volume,{0}'.format(symbol))
+        data = int(data)
+        if data == 1:
+            data = true
+        elif data == 0:
+            data = false
+        else:
+            error(data)
+            data = false
         return data
         
     def buy(symbol, quantity):
         data = sendMessage('buy,{0},{1}'.format(symbol,quantity))
+        data = int(data)
+        if data == 1:
+            data = true
+        elif data == 0:
+            data = false
+        else:
+            error(data)
+            data = false
         return data
     
     def sell(symbol, quantity):
@@ -31,10 +48,13 @@ class traderBot:
     
     def getFunds():
         data = sendMessage('funds')
-        return data
+        return int(data)
     
     def getPortfolio():
         data = sendMessage('portfolio')
+        data = data.split(',')
+        for stock in data:
+            stock = stock.split(':')
         return data
     
     def sendMessage(message):
@@ -46,6 +66,8 @@ class traderBot:
             data = sock.recv(1024)
             return data
 
+    def error(code):
+        
     
     def __init__(self):
         self.host = 'localhost'
