@@ -17,6 +17,17 @@ def initMarket():
   for ticker in "0123456789":
     stocks[ticker] = Stock(ticker)
 
+# Account Actions
+def ask(account_id, ticker, price, quantity):
+  """Add ask order to stock sell queue."""
+  stock = stocks[ticker]
+  return stock.sellAt(quantity, price, account_id)
+
+def bid(account_id, ticker, price, quantity):
+  """Add bid order to stock bid queue."""
+  stock = stocks[ticker]
+  return stock.buyAt(quantity, price, account_id)
+
 def parseData(data):
   # parse client requests according to server_api
   if data == "create":
@@ -53,6 +64,20 @@ def parseData(data):
       stocks[ticker] = stock
       return 1
     return 0
+
+  elif action == "bid":
+    ticker = split_data[2]
+    price  = float(split_data[3])
+    quantity = int(split_data[4])
+
+    return bid(account_id, ticker, price, quantity)
+
+  elif action == "ask":
+    ticker = split_data[2]
+    price  = float(split_data[3])
+    quantity = int(split_data[4])
+
+    return ask(account_id, ticker, price, quantity)
 
   elif action == "price":
     ticker = split_data[2]

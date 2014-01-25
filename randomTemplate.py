@@ -22,7 +22,7 @@ stockArray = robot.getSymbols()
 
 startingPrice = -1
 
-while (true)
+while (True):
 	#checks if portfolio is empty
 	portfolio = robot.getPortfolio()
     currentlyOwnedStock = -1
