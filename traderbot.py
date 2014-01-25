@@ -69,7 +69,7 @@ class TraderBot:
         print 'Successful: ', data
         return data
 
-    def bid(self, client_id, quantity, price, symbol):
+    def bid(self, quantity, price, symbol):
         #attempts to buy a given quantity
         data = self.sendMessage('bid,{0},{1},{2}'.format(symbol,price,quantity))
         data = int(data)
@@ -85,7 +85,7 @@ class TraderBot:
         print 'Successful: ', data
         return data
 
-    def ask(self, client_id, quantity, price, symbol):
+    def ask(self, quantity, price, symbol):
         #attempts to sell a given quantity
         data = self.sendMessage('ask,{0},{1},{2}'.format(symbol,price,quantity))
         data = int(data)
@@ -114,7 +114,12 @@ class TraderBot:
         print data
         print 'Portfolio:',data
         return data
-    
+
+    def getTrueValue(self,ticker):
+        data = self.sendMessage('trueValue,{0}'.format(ticker))
+        print 'True Value: $',data
+        return data
+
     def sendMessage(self, message):
         self.connectToServer()
         # Send data
