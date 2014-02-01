@@ -25,6 +25,7 @@ def initMarket(account_id):
 def ask(account_id, ticker, price, quantity):
   """Add ask order to stock sell queue."""
   global stocks
+  global accounts
   stock = stocks[ticker]
   account = accounts[account_id]
   quantityAvailable = account.portfolio[ticker]
@@ -40,6 +41,7 @@ def ask(account_id, ticker, price, quantity):
 def bid(account_id, ticker, price, quantity):
   """Add bid order to stock bid queue."""
   global stocks
+  global accounts
   stock = stocks[ticker]
   account = accounts[account_id]
   if price * quantity > account.availableFunds:
@@ -52,6 +54,7 @@ def bid(account_id, ticker, price, quantity):
 def buy(account_id, ticker, quantity):
   """Return 0 if insufficent funds or insufficient quantity; 1 for success."""
   global stocks
+  global accounts
   account = accounts[account_id]
   stock = stocks[ticker]
 
@@ -72,6 +75,7 @@ def buy(account_id, ticker, quantity):
 def sell(account_id, ticker, quantity):
   """Return 0 if insufficient quantity; 1 for success."""
   global stocks
+  global accounts
   account = accounts[account_id]
   stock = stocks[ticker]
 
